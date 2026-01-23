@@ -1,14 +1,19 @@
+import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import games from "../data/games"
 import "./GameDetails.css"
 
 function GameDetails() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const [game, setGame] = useState(null)
 
-  const game = games.find(g => g.id === Number(id))
+  useEffect(() => {
+    fetch(`http://localhost:3001/games/${id}`)
+      .then(res => res.json())
+      .then(data => setGame(data))
+  }, [id])
 
-  if (!game) return <p>Jeu introuvable 😢</p>
+  if (!game) return <p>Cette page n'éxiste pas</p>
 
   return (
     <div className="game-details">

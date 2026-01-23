@@ -4,6 +4,7 @@ import Games from "./pages/Games"
 import GameDetails from "./pages/GameDetails"
 import About from "./pages/About"
 import Navbar from "./components/Navbar"
+import AddGame from "./pages/AddGame"
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/games" element={<Games />} />
         <Route path="/about" element={<About />} />
         <Route path="/games/:id" element={<GameDetails />} />
+        <Route path="/add" element={<AddGame />} />
       </Routes>
     </BrowserRouter>
   )

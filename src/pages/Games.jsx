@@ -1,8 +1,16 @@
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import games from "../data/games"
 import "./Games.css"
 
 function Games() {
+  const [games, setGames] = useState([])
+
+  useEffect(() => {
+    fetch("http://localhost:3001/games")
+      .then(res => res.json())
+      .then(data => setGames(data))
+  }, [])
+
   return (
     <div className="games-page">
       <h2>🎮 Liste des jeux</h2>
