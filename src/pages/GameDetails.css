@@ -1,0 +1,8 @@
+.game-details {
+  padding: 2rem;
+  max-width: 600px;
+}
+
+.game-details p {
+  margin: 0.5rem 0;
+}

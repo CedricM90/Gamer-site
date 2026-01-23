@@ -1,0 +1,42 @@
+.games-page {
+  padding: 2rem;
+}
+
+.games-grid {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center; 
+  gap: 1.5rem;                 
+  padding: 1rem;
+}
+
+.game-card {
+  background: #111;
+  color: white;
+  width: 220px;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.game-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.8);
+}
+
+.game-card h3 {
+  margin-bottom: 0.5rem;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 1rem;
+  text-decoration: none;
+  background: #00ffcc;
+  color: black;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-weight: bold;
+}
