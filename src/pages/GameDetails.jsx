@@ -13,7 +13,7 @@ function GameDetails() {
       .then(data => setGame(data))
   }, [id])
 
-  if (!game) return <p>Cette page n'éxiste pas</p>
+  if (!game) return <p>Chargement...</p>
 
   return (
     <div className="game-details">

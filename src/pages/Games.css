@@ -14,13 +14,32 @@
 .game-card {
   background: #111;
   color: white;
-  width: 220px;
   padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.5);
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
+.card-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;     /* ou space-between si tu veux les écarter */
+}
+
+.card-actions .btn {
+  flex: 1;                     /* tous grandissent pareil */
+  min-width: 0;                /* important pour que flex fonctionne bien */
+  padding: 10px 12px;          /* padding plus compact */
+  font-size: 0.95rem;
+  text-align: center;
+  white-space: nowrap;         /* empêche le texte de passer à la ligne */
+}
+
+/* Option : forcer la même taille minimale */
+.card-actions .btn {
+  min-width: 110px;            /* ajuste selon tes besoins : 100–130px souvent parfait */
+}
 .game-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 15px 30px rgba(0,0,0,0.8);
@@ -39,4 +58,193 @@
   padding: 0.4rem 0.8rem;
   border-radius: 6px;
   font-weight: bold;
+}
+
+.delete {
+  background: #ff4d4d;
+  color: white;
+  margin-left: 0.5rem;
+}
+
+.card-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.btn.view {
+  background: linear-gradient(135deg, #00d4ff, #0095ff);
+}
+
+.btn.delete {
+  background: linear-gradient(135deg, #ff4d6b, #d32f2f);
+}
+
+
+.btn.delete:hover {
+  background: linear-gradient(135deg, #ff6b80, #e53935);
+  transform: translateY(-1px);
+}
+
+.game-card p {
+  margin: 6px 0;
+  color: #ccc;
+}
+
+.game-card h3 {
+  margin: 0 0 10px 0;
+  color: #fff;
+  font-size: 1.35rem;
+}
+
+
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.modal-content {
+  background: #1a1a1f;
+  border: 1px solid #2a2a44;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 420px;
+  padding: 28px 24px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.65);
+  color: #e0e0e0;
+  transform: scale(0.95);
+  animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.modal-title {
+  margin: 0 0 16px 0;
+  font-size: 1.5rem;
+  color: #ff4d6b; /* rouge danger */
+  text-align: center;
+  font-weight: 600;
+}
+
+.modal-message {
+  margin: 0 0 28px 0;
+  font-size: 1.1rem;
+  color: #ccc;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.btn.cancel,
+.btn.confirm {
+  padding: 12px 28px;
+  font-size: 1.05rem;
+  font-weight: 500;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn.cancel {
+  background: #444455;
+  color: #e0e0e0;
+}
+
+.btn.cancel:hover {
+  background: #555566;
+  transform: translateY(-1px);
+}
+
+.btn.confirm {
+  background: linear-gradient(135deg, #ff4d6b, #d32f2f);
+  color: white;
+}
+
+.btn.confirm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 77, 107, 0.4);
+}
+
+.toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 900;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 1.05rem;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  min-width: 280px;
+  max-width: 90%;
+  animation: toastIn 0.4s ease-out, toastOut 0.4s ease-out 2.6s forwards;
+}
+
+.success-toast {
+  background: rgba(0, 212, 255, 0.18);
+  color: #00ff9d;
+  border: 1px solid rgba(0, 212, 255, 0.35);
+}
+
+.error-toast {
+  background: rgba(255, 77, 107, 0.18);
+  color: #ff6b80;
+  border: 1px solid rgba(255, 77, 107, 0.35);
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -30px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes toastOut {
+  from {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -30px);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes modalPop {
+  from { transform: scale(0.8); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 20px 16px;
+  }
+  .modal-title {
+    font-size: 1.35rem;
+  }
 }

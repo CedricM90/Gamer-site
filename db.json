@@ -1,32 +1,39 @@
 {
   "games": [
     {
-      "id": 1,
-      "title": "The Witcher 3",
-      "genre": "RPG",
-      "rating": 9.5,
-      "description": "Un RPG narratif dans un monde ouvert riche."
-    },
-    {
-      "id": 2,
-      "title": "Elden Ring",
-      "genre": "Souls-like",
-      "rating": 9.8,
-      "description": "Un monde ouvert sombre et exigeant."
-    },
-    {
-      "id": 3,
-      "title": "Arc raiders",
-      "genre": "extraction shooter",
+      "title": "kjlhk",
+      "genre": "kjhkjh",
       "rating": 10,
-      "description": " ARC Raiders est un jeu d'aventure et d'extraction multijoueur se déroulant dans un monde futuriste et meurtrier"
+      "description": ";kjl",
+      "id": "bc14"
     },
     {
-      "id": "5890",
-      "title": "Fomula 1",
-      "genre": "Jeu de course",
-      "rating": 7.2,
-      "description": "Le jeu met en scène les écuries et les circuits du championnat du monde de Formule 1 1995 dans divers modes de jeu"
+      "id": "9bee",
+      "title": "jklklj",
+      "genre": "kljjl",
+      "rating": 1,
+      "description": "kljlj"
+    },
+    {
+      "id": "2385",
+      "title": "lkjklj",
+      "genre": "kljklj",
+      "rating": 1,
+      "description": "mlkmlk"
+    },
+    {
+      "id": "ed05",
+      "title": "kljlkjl",
+      "genre": "rpg",
+      "rating": 1,
+      "description": "mùlùml"
+    },
+    {
+      "id": "7e3b",
+      "title": "kjhkjh",
+      "genre": "RPG",
+      "rating": 1,
+      "description": "mlkmlk"
     }
   ]
 }

@@ -1,0 +1,130 @@
+/* AddGame.css */
+
+.add-game-container {
+  max-width: 540px;
+  margin: 40px auto;
+  padding: 32px 28px;
+  background: #1a1a1f;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  color: #e0e0e0;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.add-game-container h2 {
+  text-align: center;
+  margin: 0 0 28px 0;
+  font-size: 1.9rem;
+  color: #00d4ff;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+.success-message {
+  background: rgba(0, 212, 255, 0.12);
+  color: #00ff9d;
+  padding: 14px 20px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  text-align: center;
+  font-weight: 500;
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------------- Form ---------------- */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 14px 16px;
+  font-size: 1.05rem;
+  background: #252530;
+  border: 1px solid #444455;
+  border-radius: 10px;
+  color: white;
+  transition: all 0.18s ease;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #00d4ff;
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.18);
+  background: #2a2a38;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #8888aa;
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Erreurs */
+.input-error {
+  border-color: #ff4d6b !important;
+  box-shadow: 0 0 0 3px rgba(255, 77, 107, 0.15) !important;
+}
+
+.error-text {
+  color: #ff4d6b;
+  font-size: 0.87rem;
+  margin-top: 6px;
+}
+
+/* Bouton */
+.btn {
+  margin-top: 12px;
+  padding: 16px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #00d4ff, #0077ff);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 116, 255, 0.35);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(0, 116, 255, 0.25);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .add-game-container {
+    margin: 20px 12px;
+    padding: 24px 20px;
+    border-radius: 14px;
+  }
+  
+  .add-game-container h2 {
+    font-size: 1.7rem;
+  }
+}
