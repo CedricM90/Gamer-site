@@ -6,8 +6,9 @@ function AddGame() {
   const [title, setTitle] = useState("");
   const [genre, setGenre] = useState("");
   const [rating, setRating] = useState("");
+  const [image, setImage] = useState(""); 
   const [description, setDescription] = useState("");
-  const [successMessage, setSuccessMessage] = useState(false); // ← nouveau state
+  const [successMessage, setSuccessMessage] = useState(false); 
 
   const [errors, setErrors] = useState({});
 
@@ -37,6 +38,7 @@ function AddGame() {
       title: title.trim(),
       genre: genre.trim(),
       rating: Number(rating),
+      image,
       description: description.trim(),
     };
 
@@ -108,6 +110,12 @@ function AddGame() {
           />
           {errors.rating && <span className="error-text">{errors.rating}</span>}
         </div>
+        <input
+  type="text"
+  placeholder="URL de l'image"
+  value={image}
+  onChange={(e) => setImage(e.target.value)}
+/>
 
         <div className="form-group">
           <textarea

@@ -2,46 +2,49 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ConfirmModal from "../components/ConfirmModal";
 import "./Games.css";
+import { getGames, deleteGame } from "../services/api";
 
 function Games() {
   const [games, setGames] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [gameToDelete, setGameToDelete] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(null);     
-  const [errorMessage, setErrorMessage] = useState(null);         
-  const [search, setSearch] = useState("")
-  const [genre, setGenre] = useState("")
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [search, setSearch] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState("");
+  const [sortOrder, setSortOrder] = useState(""); // "" | "asc" | "desc"
 
+  // Charger les jeux depuis l'API
   useEffect(() => {
-    fetch("http://localhost:3001/games")
-      .then((res) => res.json())
+    getGames()
       .then(setGames)
-      .catch(console.error);
+      .catch(() =>
+        setErrorMessage("Impossible de charger les jeux")
+      );
   }, []);
 
+  // Ouvrir la modal de suppression
   const openDeleteModal = (game) => {
     setGameToDelete(game);
     setModalOpen(true);
   };
 
+  // Confirmer la suppression
   const handleConfirmDelete = () => {
     if (!gameToDelete) return;
 
-    fetch(`http://localhost:3001/games/${gameToDelete.id}`, {
-      method: "DELETE",
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Échec de la suppression");
-        }
-        // Succès
-        setGames((prev) => prev.filter((g) => g.id !== gameToDelete.id));
-        setSuccessMessage(`"${gameToDelete.title}" a été supprimé avec succès !`);
+    deleteGame(gameToDelete.id)
+      .then(() => {
+        setGames((prev) =>
+          prev.filter((g) => g.id !== gameToDelete.id)
+        );
+        setSuccessMessage(
+          `"${gameToDelete.title}" a été supprimé avec succès !`
+        );
         setTimeout(() => setSuccessMessage(null), 3000);
       })
-      .catch((err) => {
-        console.error("Erreur suppression :", err);
-        setErrorMessage("Erreur lors de la suppression. Réessayez.");
+      .catch(() => {
+        setErrorMessage("Erreur lors de la suppression.");
         setTimeout(() => setErrorMessage(null), 4000);
       })
       .finally(() => {
@@ -50,28 +53,38 @@ function Games() {
       });
   };
 
+  // Fermer la modal
   const closeModal = () => {
     setModalOpen(false);
     setGameToDelete(null);
   };
 
-  const filteredGames = games.filter(game => {
-  const matchTitle = game.title
-    .toLowerCase()
-    .includes(search.toLowerCase())
+  // Filtrer par recherche et genre
+  const filteredGames = games.filter((game) => {
+    const matchTitle = game.title
+      .toLowerCase()
+      .includes(search.toLowerCase());
+    const matchGenre =
+      selectedGenre === "" || game.genre === selectedGenre;
+    return matchTitle && matchGenre;
+  });
 
-  const matchGenre = genre === "" || game.genre === genre
+  // Trier selon le choix
+  const sortedGames = [...filteredGames];
+  if (sortOrder === "asc") {
+    sortedGames.sort((a, b) => a.rating - b.rating);
+  } else if (sortOrder === "desc") {
+    sortedGames.sort((a, b) => b.rating - a.rating);
+  }
 
-  return matchTitle && matchGenre
-})
-
-const genres = [...new Set(games.map(game => game.genre))]
+  // Générer la liste des genres
+  const genres = [...new Set(games.map((game) => game.genre))];
 
   return (
     <div className="games-page">
       <h2>🎮 Liste des jeux</h2>
 
-      {/* Messages toast */}
+      {/* TOASTS */}
       {successMessage && (
         <div className="toast success-toast">{successMessage}</div>
       )}
@@ -79,71 +92,96 @@ const genres = [...new Set(games.map(game => game.genre))]
         <div className="toast error-toast">{errorMessage}</div>
       )}
 
-      {games.length === 0 && (
-        <p style={{ textAlign: "center", color: "#aaa", marginTop: "2rem" }}>
-          Aucun jeu pour le moment...
-        </p>
-      )}
-
+      {/* FILTRES */}
       <div style={{ marginBottom: "1.5rem" }}>
-  <input
-    type="text"
-    placeholder="Rechercher un jeu..."
-    value={search}
-    onChange={e => setSearch(e.target.value)}
-  />
-<button
-  onClick={() => { setSearch(""); setGenre(""); }}
-  style={{ marginLeft: "0.5rem" }}
->
-  Reset filtres
-</button>
-<select
-  value={genre}
-  onChange={e => setGenre(e.target.value)}
-  style={{ marginLeft: "1rem" }}
->
-  <option value="">Tous les genres</option>
-  {genres.map((g, index) => (
-    <option key={index} value={g}>{g}</option>
-  ))}
-</select>
+        <input
+          type="text"
+          placeholder="Rechercher un jeu..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
 
-</div>
+        <button
+          onClick={() => {
+            setSearch("");
+            setSelectedGenre("");
+            setSortOrder("");
+          }}
+          style={{ marginLeft: "0.5rem" }}
+        >
+          Reset filtres
+        </button>
 
+        <select
+          value={selectedGenre}
+          onChange={(e) => setSelectedGenre(e.target.value)}
+          style={{ marginLeft: "1rem" }}
+        >
+          <option value="">Tous les genres</option>
+          {genres.map((g) => (
+            <option key={g} value={g}>
+              {g}
+            </option>
+          ))}
+        </select>
 
-<div className="games-grid">
-  {filteredGames.length === 0 ? (
-    <p style={{ marginTop: "2rem", fontStyle: "italic" }}>
-      Aucun jeu trouvé 😢
-    </p>
-  ) : (
-    filteredGames.map(game => (
-      <div className="game-card" key={game.id}>
-        <h3>{game.title}</h3>
-        <p>{game.genre}</p>
-        <p>⭐ {game.rating}/10</p>
-        <div className="card-actions">
-          <Link to={`/games/${game.id}`} className="btn view">
-            Voir
-          </Link>
-          <Link to={`/games/${game.id}/edit`} className="btn">
-            Modifier
-          </Link>
-          <button
-            className="btn delete"
-            onClick={() => openDeleteModal(game)}
-          >
-            Supprimer
-          </button>
-        </div>
+        <select
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value)}
+          style={{ marginLeft: "1rem" }}
+        >
+          <option value="">Trier par note</option>
+          <option value="asc">Note croissante</option>
+          <option value="desc">Note décroissante</option>
+        </select>
       </div>
-    ))
-  )}
-</div>
 
+      {/* GRID DES JEUX */}
+      <div className="games-grid">
+        {sortedGames.length === 0 ? (
+          <p style={{ marginTop: "2rem", fontStyle: "italic" }}>
+            Aucun jeu trouvé 😢
+          </p>
+        ) : (
+          sortedGames.map((game) => (
+            <div className="game-card" key={game.id}>
+              <div className="game-image-wrapper">
+                <img
+                  src={game.image}
+                  alt={game.title}
+                  className="game-image"
+                />
+                <span className="game-rating">⭐ {game.rating}</span>
+              </div>
 
-      {/* Le modal */}
+              <div className="game-content">
+                <h3 className="game-title">{game.title}</h3>
+                <span className="game-genre">{game.genre}</span>
+
+                <div className="card-actions">
+                  <Link to={`/games/${game.id}`} className="btn view">
+                    Voir
+                  </Link>
+                  <Link
+                    to={`/games/${game.id}/edit`}
+                    className="btn modify"
+                  >
+                    Modifier
+                  </Link>
+                  <button
+                    className="btn delete"
+                    onClick={() => openDeleteModal(game)}
+                  >
+                    Supprimer
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
+      {/* MODAL SUPPRESSION */}
       <ConfirmModal
         isOpen={modalOpen}
         onClose={closeModal}
@@ -151,7 +189,7 @@ const genres = [...new Set(games.map(game => game.genre))]
         title="Confirmer la suppression"
         message={
           gameToDelete
-            ? `Voulez-vous vraiment supprimer "${gameToDelete.title}" ? Cette action est irréversible.`
+            ? `Voulez-vous vraiment supprimer "${gameToDelete.title}" ?`
             : ""
         }
       />

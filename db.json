@@ -1,39 +1,28 @@
 {
   "games": [
     {
-      "title": "kjlhk",
-      "genre": "kjhkjh",
-      "rating": 10,
-      "description": ";kjl",
-      "id": "bc14"
-    },
-    {
-      "id": "9bee",
-      "title": "jklklj",
-      "genre": "kljjl",
-      "rating": 1,
-      "description": "kljlj"
-    },
-    {
-      "id": "2385",
-      "title": "lkjklj",
-      "genre": "kljklj",
-      "rating": 1,
-      "description": "mlkmlk"
-    },
-    {
-      "id": "ed05",
       "title": "kljlkjl",
       "genre": "rpg",
-      "rating": 1,
-      "description": "mùlùml"
+      "rating": 3,
+      "description": "mùlùml",
+      "id": "ed05",
+      "image": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1wyy.jpg"
     },
     {
-      "id": "7e3b",
-      "title": "kjhkjh",
+      "id": "1870",
+      "title": "Skyrim",
       "genre": "RPG",
-      "rating": 1,
-      "description": "mlkmlk"
+      "rating": 9.5,
+      "description": "Rpg",
+      "image": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1wyy.jpg"
+    },
+    {
+      "id": "2152",
+      "title": "lkjlk",
+      "genre": "kljklj",
+      "rating": 10,
+      "image": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1wyy.jpg",
+      "description": "kljm"
     }
   ]
 }
