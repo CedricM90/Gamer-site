@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ConfirmModal from "../components/ConfirmModal";
 import "./Games.css";
 import { getGames, deleteGame } from "../services/api";
+import GameModal from "../components/GameModal";
 
 function Games() {
   const [games, setGames] = useState([]);
@@ -13,6 +14,8 @@ function Games() {
   const [search, setSearch] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("");
   const [sortOrder, setSortOrder] = useState(""); // "" | "asc" | "desc"
+  const [modalGameOpen, setModalGameOpen] = useState(false);
+  const [selectedGame, setSelectedGame] = useState(null);
 
   // Charger les jeux depuis l'API
   useEffect(() => {
@@ -79,6 +82,16 @@ function Games() {
 
   // Générer la liste des genres
   const genres = [...new Set(games.map((game) => game.genre))];
+
+  const openGameModal = (game) => {
+  setSelectedGame(game);
+  setModalGameOpen(true);
+};
+
+const closeGameModal = () => {
+  setSelectedGame(null);
+  setModalGameOpen(false);
+};
 
   return (
     <div className="games-page">
@@ -159,9 +172,12 @@ function Games() {
                 <span className="game-genre">{game.genre}</span>
 
                 <div className="card-actions">
-                  <Link to={`/games/${game.id}`} className="btn view">
-                    Voir
-                  </Link>
+<button
+  className="btn view"
+  onClick={() => openGameModal(game)}
+>
+  Voir
+</button>
                   <Link
                     to={`/games/${game.id}/edit`}
                     className="btn modify"
@@ -193,6 +209,11 @@ function Games() {
             : ""
         }
       />
+      <GameModal
+  isOpen={modalGameOpen}
+  onClose={closeGameModal}
+  game={selectedGame}
+/>
     </div>
   );
 }
