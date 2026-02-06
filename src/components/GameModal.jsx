@@ -1,32 +1,45 @@
-import React from "react";
-import { Link } from "react-router-dom";
 import "./GameModal.css";
 
-function GameModal({ isOpen, onClose, game, onDelete }) {
+function GameModal({ isOpen, onClose, game }) {
   if (!isOpen || !game) return null;
 
   return (
-    <div className="gm-overlay" onClick={onClose}>
-      <div className="gm-content" onClick={(e) => e.stopPropagation()}>
-        {/* Bouton close */}
-        <button className="gm-close" onClick={onClose}>✖</button>
+    <div className="game-modal-overlay" onClick={onClose}>
+      <div
+        className="game-modal-container"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button className="game-modal-close" onClick={onClose}>
+          ✕
+        </button>
 
-        {/* Corps de la modal */}
-        <div className="gm-body">
-          <img src={game.image} alt={game.title} className="gm-image" />
-          <h2 className="gm-title">{game.title}</h2>
-          <span className="gm-genre">{game.genre}</span>
-          <p className="gm-rating">⭐ {game.rating}/10</p>
-          {game.description && <p className="gm-description">{game.description}</p>}
-          {game.developer && <p className="gm-developer">Développeur : {game.developer}</p>}
-          {game.platform && <p className="gm-platform">Plateforme : {game.platform}</p>}
-        </div>
+<div className="game-modal-image-wrapper">
+  {game.image && (
+    <img
+      src={game.image}
+      alt={game.title}
+      className="game-modal-image"
+    />
+  )}
+</div>
 
-        {/* Boutons empilés */}
-        <div className="gm-actions">
-          <Link to={`/games/${game.id}`} className="btn view">Voir</Link>
-          <Link to={`/games/${game.id}/edit`} className="btn modify">Modifier</Link>
-          <button className="btn delete" onClick={() => onDelete(game)}>Supprimer</button>
+        <div className="game-modal-content">
+          <h2 className="game-modal-title">{game.title}</h2>
+          <span className="game-modal-genre">{game.genre}</span>
+
+          <p className="game-modal-rating">⭐ {game.rating} / 10</p>
+
+          {game.description && (
+            <p className="game-modal-description">{game.description}</p>
+          )}
+
+          {game.developer && (
+            <p className="game-modal-info">🎮 Développeur : {game.developer}</p>
+          )}
+
+          {game.platform && (
+            <p className="game-modal-info">🕹 Plateforme : {game.platform}</p>
+          )}
         </div>
       </div>
     </div>

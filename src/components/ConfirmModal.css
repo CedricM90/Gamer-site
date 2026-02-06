@@ -1,0 +1,115 @@
+/* OVERLAY */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000; /* au-dessus de tout */
+  animation: overlayFade 0.2s ease;
+}
+
+/* MODAL BOX */
+.modal-content {
+  background: #0f0f1a;
+  color: #f1f1f1;
+  padding: 1.8rem;
+  border-radius: 18px;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+  animation: modalPop 0.25s ease;
+  text-align: center;
+}
+
+/* TITRE */
+.modal-title {
+  margin-bottom: 0.8rem;
+  font-size: 1.5rem;
+  color: #ff4b4b;
+}
+
+/* MESSAGE */
+.modal-message {
+  font-size: 1rem;
+  color: #ddd;
+  line-height: 1.5;
+  margin-bottom: 1.6rem;
+}
+
+/* ACTIONS */
+.modal-content {
+  background: var(--modal-content-bg);
+  border-radius: 16px;
+  max-width: 400px;
+  width: 90%;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-title {
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.modal-message {
+  color: #ccc;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.modal-actions .btn.cancel {
+  background: #555;
+}
+
+.modal-actions .btn.cancel:hover {
+  background: #777;
+}
+
+.modal-actions .btn.confirm {
+  background: var(--delete);
+}
+
+.modal-actions .btn.confirm:hover {
+  background: #ff1f1f;
+}
+
+/* ANIMATIONS */
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes overlayFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .games-grid {
+    grid-template-columns: 1fr;
+  }
+  .card-actions {
+    flex-direction: column;
+  }
+  .game-modal-image-wrapper {
+    height: 200px;
+  }
+}

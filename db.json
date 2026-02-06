@@ -1,14 +1,6 @@
 {
   "games": [
     {
-      "title": "kljlkjl",
-      "genre": "rpg",
-      "rating": 3,
-      "description": "mùlùml",
-      "id": "ed05",
-      "image": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1wyy.jpg"
-    },
-    {
       "id": "1870",
       "title": "Skyrim",
       "genre": "RPG",
@@ -23,6 +15,14 @@
       "rating": 10,
       "image": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1wyy.jpg",
       "description": "kljm"
+    },
+    {
+      "id": "4407",
+      "title": "fghghghhgf",
+      "genre": "ghfghfgh",
+      "rating": 2,
+      "image": "",
+      "description": "fdsfdsf"
     }
   ]
 }

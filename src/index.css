@@ -52,6 +52,21 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+:root {
+  --bg-main: #0f1115;
+  --bg-card: #1a1d24;
+  --bg-hover: #222634;
+
+  --text-main: #eaeaf0;
+  --text-muted: #9aa0b4;
+
+  --accent: #7c7cff;
+  --danger: #ff4d4f;
+  --success: #4caf50;
+
+  --radius: 14px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

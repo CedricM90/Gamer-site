@@ -1,153 +1,189 @@
-/* Overlay du modal */
-.gm-overlay {
+/* ------------------------ */
+/* OVERLAY */
+.game-modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.75); /* plus foncé pour focus modal */
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 9999; /* au-dessus de tout */
+  animation: overlayFade 0.25s ease;
 }
 
-/* Contenu du modal */
-.gm-content {
-  background: #0f0f1a;
+/* ------------------------ */
+/* MODAL CONTAINER */
+.game-modal-container {
+  background: #12121f; /* dark gaming */
   border-radius: 16px;
-  padding: 2rem;
-  max-width: 500px;
   width: 90%;
+  max-width: 500px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
   position: relative;
+  animation: modalPop 0.25s ease;
+}
+
+/* ------------------------ */
+/* CLOSE BUTTON */
+.game-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #ff4b4b;
+  border: none;
   color: #fff;
-  box-shadow: 0 0 20px #00ffcc;
-  animation: gm-fadeIn 0.3s ease;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 0.3rem 0.7rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.game-modal-close:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(255, 75, 75, 0.6);
+}
+
+/* ------------------------ */
+/* IMAGE */
+.game-modal-image-wrapper {
+  width: 100%;
+  max-height: 250px;
+  overflow: hidden;
+}
+
+.game-modal-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+/* ------------------------ */
+/* CONTENT */
+.game-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--modal-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.game-modal-container {
+  background: var(--modal-content-bg);
+  border-radius: 16px;
+  max-width: 600px;
+  width: 90%;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  position: relative;
 }
 
-/* Bouton fermer stylé bleu/vert */
-.gm-close {
+.game-modal-close {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: linear-gradient(135deg, #00ffcc, #1e90ff);
-  border: none;
-  border-radius: 10%;
-  color: #fff;
+  background: var(--accent);
+  color: #000;
   font-weight: bold;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  border: none;
   cursor: pointer;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-size: 1.2rem;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
-.gm-close:hover {
-  transform: scale(1.2);
-  box-shadow: 0 0 15px rgba(0, 255, 204, 0.8);
+.game-modal-close:hover {
+  background: var(--accent-hover);
+  transform: scale(1.1);
 }
 
-/* Corps du modal */
-.gm-body {
+.game-modal-image-wrapper {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
+.game-modal-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.game-modal-content {
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  text-align: left;
 }
 
-/* Image du jeu */
-.gm-image {
-  max-width: 100%;
-  max-height: 200px;
-  object-fit: contain;
-  border-radius: 8px;
-  margin-bottom: 1rem;
+.game-modal-title {
+  margin: 0;
+  font-size: 1.6rem;
+  color: #fff;
 }
 
-/* Titre du jeu */
-.gm-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 0.3rem;
-}
-
-/* Genre du jeu */
-.gm-genre {
+.game-modal-genre {
   display: inline-block;
-  background-color: #1a1a2e;
-  color: #00ffcc;
-  padding: 0.2rem 0.5rem;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
+  padding: 4px 10px;
+  border-radius: 5px;
+  background: var(--genre-bg);
+  color: #fff;
+  white-space: nowrap;
 }
 
-/* Note */
-.gm-rating {
+.game-modal-rating {
   font-weight: bold;
-  margin-bottom: 0.5rem;
+  margin-top: 0.3rem;
 }
 
-/* Description, développeur, plateforme */
-.gm-description,
-.gm-developer,
-.gm-platform {
-  font-size: 0.9rem;
-  margin-bottom: 0.3rem;
+.game-modal-description,
+.game-modal-info {
+  font-size: 0.95rem;
+  color: #ccc;
 }
 
-/* Boutons empilés dans la modal */
-.gm-actions {
-  display: flex;
-  flex-direction: column; /* empilés verticalement */
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
-
-.gm-actions .btn {
-  padding: 0.5rem 1rem;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 0.9rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.gm-actions .btn.view {
-  background: linear-gradient(135deg, #00ffcc, #1e90ff);
-  color: #fff;
-}
-
-.gm-actions .btn.modify {
-  background: linear-gradient(135deg, #1e90ff, #00ffcc);
-  color: #fff;
-}
-
-.gm-actions .btn.delete {
-  background: #ff4b4b;
-  color: #fff;
-}
-
-.gm-actions .btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 10px #00ffcc;
-}
-
-/* Animation apparition modal */
-@keyframes gm-fadeIn {
+/* ------------------------ */
+/* ANIMATIONS */
+@keyframes modalPop {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: scale(0.92);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1);
+  }
+}
+
+@keyframes overlayFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ------------------------ */
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .game-modal-container {
+    width: 95%;
+  }
+
+  .game-modal-title {
+    font-size: 1.5rem;
+  }
+
+  .game-modal-genre {
+    font-size: 0.75rem;
   }
 }
